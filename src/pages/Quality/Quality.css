@@ -1,0 +1,9 @@
+.quality {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 24px;
+}
+
+.quality ol {
+  margin-top: 32px;
+}

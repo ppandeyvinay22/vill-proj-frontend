@@ -1,0 +1,410 @@
+/* ================= GLOBAL ================= */
+.home {
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-heading {
+  font-size: 32px;
+  font-weight: 600;
+  color: #111;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ================= HERO ================= */
+.hero {
+  background: #000;
+  color: #fff;
+  /* padding: 30px 0px 100px 0px; */
+  padding: 150px 0px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.tag-line {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.highlight {
+  color: #7ddc8a;
+}
+
+.hero-text {
+  color: #e5e7eb;
+  line-height: 1.7;
+  margin: 24px 0 36px;
+}
+
+.good {
+  color: #7ddc8a;
+}
+.bad {
+  color: #f6ad55;
+}
+.strong {
+  font-weight: 600;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 420px; /* controls vertical dominance */
+  object-fit: cover; /* IMPORTANT */
+  border-radius: 20px;
+}
+/* ================= TRUST ================= */
+/* ================= TRUST SECTION ================= */
+
+.trust {
+  padding: 110px 0;
+  background: linear-gradient(
+      rgba(244, 250, 228, 0.75),
+      rgba(121, 123, 122, 0.75)
+    ),
+    url("../../assets/images/backgrounds/trust-bg.webp") center / cover
+      no-repeat;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+/* Light, calm cards (not white) */
+.trust-card {
+  background: #eeecec;
+  border-radius: 18px;
+  padding: 32px;
+}
+
+.trust-icon {
+  font-size: 28px;
+  color: #7ddc8a;
+  margin-bottom: 16px;
+}
+
+.trust-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.trust-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+/* ================= PROBLEM SECTION ================= */
+
+.problem {
+  /* position: relative; */
+  padding: 110px 0;
+  background: linear-gradient(
+      rgba(253, 253, 253, 0.75),
+      rgba(250, 250, 248, 0.75)
+    ),
+    url("../../assets/images/backgrounds/food-processing.webp") center / cover
+      no-repeat;
+}
+
+/* Soft overlay for readability */
+/* .problem-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+} */
+
+.problem-inner {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.problem-heading {
+  color: #111;
+}
+
+.problem-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #374151;
+  margin: 24px auto 48px;
+}
+
+/* Emphasis */
+.problem-text .warn {
+  color: #8a4e04;
+  font-weight: 500;
+}
+
+.problem-text .good {
+  color: #25632d;
+  font-weight: 500;
+}
+
+/* Stats */
+.problem-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.problem-stat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 20px;
+}
+
+.problem-stat-card strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.problem-stat-card span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .problem-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-text {
+    font-size: 17px;
+  }
+}
+
+/* ================= PRODUCTS ================= */
+.products-preview {
+  padding: 100px 0;
+  background: #fafafa;
+  text-align: center;
+}
+
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.product-card {
+  background: #fff;
+  padding: 48px;
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.section-action {
+  margin-top: 50px;
+}
+
+/* ================= PRODUCTS SWIPER ================= */
+
+.products-swiper {
+  margin-top: 36px;
+}
+
+.product-image-card {
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Edge fade */
+.products-swiper {
+  position: relative;
+  overflow: hidden;
+}
+
+.products-swiper::before,
+.products-swiper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px; /* fade width */
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.products-swiper::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    #fafafa 0%,
+    rgba(250, 250, 250, 0.8) 40%,
+    transparent 100%
+  );
+}
+
+.products-swiper::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    #fafafa 0%,
+    rgba(250, 250, 250, 0.8) 40%,
+    transparent 100%
+  );
+}
+
+.products-swiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+/* ================= QUALITY ================= */
+.quality-preview {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.quality-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.quality-steps {
+  margin: 24px 0;
+  list-style: none;
+  padding: 0;
+}
+
+.quality-steps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.quality-image {
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+}
+
+.quality-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+/* ================= VIDEO ================= */
+.video-section {
+  padding: 100px 0;
+  /* background: #fafafa; */
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 360px;
+  border-radius: 16px;
+}
+
+/* ================= PURITY MATTER ================= */
+.food-message {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #374151; /* calm dark gray */
+}
+
+.food-message .warn {
+  color: #f6ad55; /* processed / caution */
+  font-weight: 500;
+}
+
+.food-message .good {
+  color: #7ddc8a; /* health / trust */
+}
+
+.food-message .strong {
+  font-weight: 600;
+}
+
+/* Quote styling – unique but subtle */
+.food-quote {
+  margin-top: 20px;
+  font-style: italic;
+  color: #6b7280;
+  border-left: 3px solid #7ddc8a;
+  padding-left: 16px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .hero-inner,
+  .quality-grid,
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-inner {
+    gap: 32px;
+  }
+
+  .product-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-image img {
+    max-height: 300px;
+  }
+
+  .tag-line {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+}

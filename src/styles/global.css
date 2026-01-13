@@ -1,0 +1,26 @@
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Theme variables */
+:root {
+  --color-primary: #2f7d32;
+  --color-text: #222;
+  --color-bg: #ffffff;
+
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-text: #e5e7eb;
+}
