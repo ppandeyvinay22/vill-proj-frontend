@@ -14,14 +14,30 @@
   gap: 40px;
 }
 
-.footer-brand h4 {
-  font-size: 18px;
-  margin-bottom: 8px;
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
-.footer-brand p {
-  font-size: 18px;
-  color: #cdcbcb;
+.footer-logo:hover {
+  color: #7ddc8a;
+}
+
+.footer-logo img {
+  width: 38px;
+}
+
+.footer-tagline {
+  font-size: 16px;
+  color: #a1a1aa;
+  line-height: 1.5;
+  max-width: 280px;
 }
 
 .footer-links h5 {
@@ -50,19 +66,8 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.logo {
-  margin-bottom: 6px;
-}
-
-.logo img {
-  width: 42px;
-  color: #fff;
-}
-
-.logo span {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
+.logo-text {
+  font-weight: 600;
 }
 
 /* Responsive */

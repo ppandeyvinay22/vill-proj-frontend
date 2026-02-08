@@ -67,6 +67,12 @@
   overflow: hidden;
   background: #e5e7eb;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.quality-method:hover .quality-method-image {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: scale(1.02);
 }
 
 .quality-method-image img {

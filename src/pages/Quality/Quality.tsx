@@ -5,9 +5,9 @@ import Button from "../../components/Button/Button";
 import { FaArrowRight } from "react-icons/fa";
 
 /* Method images – replace with your actual equipment photos when available */
-import methodMoisture from "../../assets/images/photos/12.webp";
-import methodSieve from "../../assets/images/photos/14.webp";
-import methodGrain from "../../assets/images/photos/16.webp";
+import methodMoisture from "../../assets/images/photos/21.webp";
+import methodSieve from "../../assets/images/photos/22.webp";
+import methodGrain from "../../assets/images/photos/23.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -78,7 +78,7 @@ export default function Quality() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
               <div className="quality-method-image">

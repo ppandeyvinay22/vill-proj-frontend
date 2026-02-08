@@ -44,8 +44,8 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
           >
             Why <span className="highlight">GaonKart</span> exists
           </motion.h2>

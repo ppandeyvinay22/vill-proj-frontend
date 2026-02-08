@@ -95,7 +95,6 @@ const Home = () => {
       {/* ================= TRUST ================= */}
       <section className="trust">
         <div className="container">
-
           <motion.h2
             className="section-heading"
             variants={fadeUp}
@@ -104,7 +103,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            Why families <span style={{ color: "#1E4D2B"}}>trust GaonKart</span> 
+            Why families <span style={{ color: "#1E4D2B" }}>trust GaonKart</span>
           </motion.h2>
 
           <div className="trust-grid">
@@ -129,7 +128,6 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
