@@ -1,5 +1,5 @@
 import "./Home.css";
-import farmerImage from "../../assets/images/headings/tag-heading.webp";
+import heroImage from "../../assets/images/photos/5.webp";
 import qualityBg from "../../assets/images/backgrounds/quality-bg.webp";
 
 import Button from "../../components/Button/Button";
@@ -54,7 +54,7 @@ const Home = () => {
             </h1>
 
             <p className="hero-text">
-              GaonHarvest brings traditionally sourced Wheat, rice, dal, and more
+              GaonKart brings traditionally sourced Wheat, rice, dal, and more
               directly from villages —
               <span className="good"> tested</span>,
               <span className="good"> trusted</span>, and
@@ -85,7 +85,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            <img src={farmerImage} alt="Village harvest" />
+            <img src={heroImage} alt="Village harvest" />
           </motion.div>
 
         </div>
@@ -104,7 +104,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            Why families trust GaonHarvest
+            Why families <span style={{ color: "#1E4D2B"}}>trust GaonKart</span> 
           </motion.h2>
 
           <div className="trust-grid">
@@ -148,7 +148,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            What’s wrong with today’s <span style={{ color: "#25632d" }}>food</span>?
+            What’s wrong with today’s <span style={{ color: "#1E4D2B" }}>food</span>?
           </motion.h2>
 
           <motion.p
@@ -269,7 +269,7 @@ const Home = () => {
             {[wheatImg, riceImg, dalImg, wheatImg, riceImg].map((img, i) => (
               <SwiperSlide key={i}>
                 <div className="product-image-card">
-                  <img src={img} alt="GaonHarvest product" />
+                  <img src={img} alt="GaonKart product" />
                 </div>
               </SwiperSlide>
             ))}

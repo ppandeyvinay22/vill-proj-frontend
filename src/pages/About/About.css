@@ -1,5 +1,175 @@
 .about {
-  max-width: 900px;
-  margin: 80px auto;
+  width: 100%;
+}
+
+/* HERO */
+.about-hero {
+  background: #000;
+  padding: 140px 24px;
+  text-align: center;
+}
+
+.about-title {
+  color: #fff;
+  font-size: 3.5rem;
+  line-height: 1.2;
+}
+
+/* COMMON */
+.about-section {
+  max-width: 1200px;
+  margin: 120px auto;
   padding: 0 24px;
+}
+
+.about-section h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.about-section p {
+  color: #555;
+  max-width: 700px;
+}
+
+/* WHY */
+.about-why,
+.about-belief {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* FOUNDERS */
+.about-founders {
+  max-width: 1200px;
+  margin: 140px auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.about-founders h2 {
+  font-size: 32px;
+}
+
+.founder-row {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 48px;
+}
+
+.founder {
+  max-width: 300px;
+}
+
+.founder img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.founder .heading {
+  margin-bottom: 8px;
+  color: #161414;
+}
+.founder .designation {
+  color: #414141;
+  margin-bottom: 16px;
+}
+
+.founder .description {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* QUOTE */
+.about-quote {
+  max-width: 900px;
+  margin: 120px auto;
+  padding: 0 24px;
+}
+
+.about-quote blockquote {
+  font-style: italic;
+  color: #6b7280;
+  border-left: 3px solid #7ddc8a;
+  padding-left: 16px;
+  font-size: 18px;
+}
+
+/* HIGHLIGHT */
+.highlight {
+  color: #7ddc8a;
+}
+
+/* Image style  */
+.about-img {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 12px;
+  display: block;
+}
+
+.about-text {
+  line-height: 1.7;
+  margin-top: 16px;
+}
+
+.dark-bg,
+.light-bg {
+  padding: 60px 24px;
+  border-radius: 12px;
+}
+.dark-bg {
+  background-color: rgba(237, 237, 237, 0.9);
+}
+.light-bg {
+  background-color: rgba(234, 253, 228, 0.9);
+}
+
+/* FInal CTA */
+.about-final-cta {
+  background-color: rgba(234, 253, 228, 0.9);
+  padding: 60px 24px;
+  max-width: 900px;
+  margin: 140px auto;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.about-final-cta blockquote {
+  font-style: italic;
+  color: #6b7280;
+  border-left: 3px solid #7ddc8a;
+  padding-left: 16px;
+  margin: 0 auto 60px;
+  text-align: left;
+}
+
+.cta-question {
+  font-size: 20px;
+  margin-bottom: 32px;
+  color: #111;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-why,
+  .about-belief {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-row {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .about-title {
+    font-size: 2.4rem;
+  }
 }

@@ -12,7 +12,6 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: 16px 24px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,15 +22,15 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 1px;
   text-decoration: none;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  /* font-weight: 600; */
   color: #fff;
 }
 
 .logo img {
-  width: 36px;
+  width: 38px;
 }
 
 /* ================= DESKTOP NAV ================= */

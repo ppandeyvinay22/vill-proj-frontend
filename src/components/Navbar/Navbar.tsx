@@ -19,8 +19,8 @@ export default function Navbar() {
         <div className="header-container">
           {/* Logo */}
           <NavLink to="/" className="logo">
-            <img src={logo} alt="GaonHarvest" />
-            <span>aonHarvest</span>
+            <img src={logo} alt="GaonKart" />
+            <span>aonKart</span>
           </NavLink>
 
           {/* Desktop Nav */}
@@ -79,8 +79,8 @@ export default function Navbar() {
                   className="logo"
                   onClick={() => setOpen(false)}
                 >
-                  <img src={logo} alt="GaonHarvest" />
-                  <span>aonHarvest</span>
+                  <img src={logo} alt="GaonKart" />
+                  <span>aonKart</span>
                 </NavLink>
 
                 <button

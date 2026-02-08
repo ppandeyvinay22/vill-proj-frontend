@@ -1,16 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- G shape -->
-  <path d="M16 3
-           A13 13 0 1 0 29 16
-           h-8
-           v4
+  <!-- G outer ring -->
+  <path d="M16 4
+           A12 12 0 1 0 28 16
+           h-7
+           v3
            h4
-           A9 9 0 1 1 16 7
-           a9 9 0 0 1 6.5 2.7"
-        fill="#f08b10"/>
+           A9 9 0 1 1 16 7"
+        fill="#f5b32e"/>
 
-  <!-- H merged inside -->
-  <rect x="17" y="10" width="2.5" height="12" fill="#2bd157"/>
-  <rect x="22" y="10" width="2.5" height="12" fill="#2bd157"/>
-  <rect x="17" y="15" width="7.5" height="2.5" fill="#2bd157"/>
+  <!-- K inside -->
+  <path d="M14 10
+           v12
+           h2
+           v-4
+           l4 4
+           h3
+           l-5-5
+           l5-5
+           h-3
+           l-4 4
+           v-6z"
+        fill="#7ddc8a"/>
 </svg>
