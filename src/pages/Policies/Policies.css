@@ -1,0 +1,155 @@
+.policy-page {
+  padding: 6rem 2rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.policy-container {
+  line-height: 1.8;
+}
+
+.policy-back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.policy-back:hover {
+  text-decoration: underline;
+}
+
+.policy-page h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+}
+
+.policy-updated {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 3rem;
+}
+
+.policy-page h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.policy-page p {
+  color: #444;
+  margin-bottom: 1.25rem;
+}
+
+.policy-page ul,
+.policy-page ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.policy-page li {
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.policy-page li strong {
+  color: #1a1a1a;
+}
+
+/* Courier Grid */
+.courier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.courier-card {
+  padding: 1.25rem;
+  background: #f8f8f8;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid #eee;
+}
+
+.courier-card strong {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.courier-card span {
+  font-size: 0.85rem;
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+/* Delivery Steps */
+.delivery-steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+}
+
+.delivery-steps li {
+  position: relative;
+  padding-left: 3rem;
+  padding-bottom: 2rem;
+  border-left: 2px solid #e0e0e0;
+  margin-left: 1rem;
+}
+
+.delivery-steps li:last-child {
+  border-left: none;
+}
+
+.delivery-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: -0.85rem;
+  top: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  background: #4CAF50;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.delivery-steps li strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.delivery-steps li p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .policy-page h1,
+  .policy-page h2 { color: #fff; }
+  .policy-page p { color: #bbb; }
+  .policy-page li { color: #aaa; }
+  .policy-page li strong { color: #fff; }
+  .courier-card { background: #1e1e1e; border-color: #333; }
+  .courier-card strong { color: #fff; }
+  .policy-page h2 { border-color: #333; }
+}

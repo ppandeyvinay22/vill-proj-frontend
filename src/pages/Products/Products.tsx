@@ -1,128 +1,153 @@
-import "./Products.css";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import Button from "../../components/Button/Button";
-import { FaArrowRight } from "react-icons/fa";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
+import { useCartStore } from '../../store/useCartStore';
+import { useAuthStore } from '../../store/useAuthStore';
+import { Plus, Minus, ShoppingBag } from 'lucide-react';
+import './Products.css';
 
-import wheatImg from "../../assets/images/products/wheat.webp";
-import riceImg from "../../assets/images/products/rice.webp";
-import dalImg from "../../assets/images/products/dal.webp";
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  category: string;
+}
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const products = [
-  {
-    id: "wheat",
-    name: "Wheat (Atta)",
-    image: wheatImg,
-    description:
-      "Stone-ground, naturally sourced wheat from village farms. No bleaching, no additives — just honest flour for rotis and parathas the way they were meant to be.",
-  },
-  {
-    id: "rice",
-    name: "Rice",
-    image: riceImg,
-    description:
-      "Unpolished, nutrient-rich rice varieties. We source directly from farmers and ensure proper moisture and purity testing so you get clean, wholesome grains.",
-  },
-  {
-    id: "dal",
-    name: "Dal",
-    image: dalImg,
-    description:
-      "Cleaned, sorted, and chemical-free lentils. Sourced from trusted villages, tested for quality, and packed fresh — no long storage or hidden treatments.",
-  },
-];
-
-export default function Products() {
+const Products = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  const { items, addItem, updateQuantity, removeItem } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get('/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const getCartQuantity = (productId: string): number => {
+    const found = items.find(i => i.product_id === productId);
+    return found ? found.quantity : 0;
+  };
+
+  const syncCart = async () => {
+    if (!isAuthenticated) return;
+    try {
+      const currentItems = useCartStore.getState().items;
+      await api.post('/cart/sync', { items: currentItems });
+    } catch (error) {
+      console.error("Failed to sync cart", error);
+    }
+  };
+
+  const handleAdd = (product: Product) => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    addItem({
+      product_id: product._id,
+      name: product.name,
+      price: product.price,
+      image_url: product.image_url,
+      quantity: 1
+    });
+    syncCart();
+  };
+
+  const handleIncrement = (productId: string) => {
+    const current = getCartQuantity(productId);
+    updateQuantity(productId, current + 1);
+    syncCart();
+  };
+
+  const handleDecrement = (productId: string) => {
+    const current = getCartQuantity(productId);
+    if (current <= 1) {
+      removeItem(productId);
+    } else {
+      updateQuantity(productId, current - 1);
+    }
+    syncCart();
+  };
+
+  if (loading) {
+    return (
+      <div className="products-loading">
+        <div className="spinner"></div>
+        <p>Loading fresh produce...</p>
+      </div>
+    );
+  }
+
   return (
-    <main className="products-page">
-      {/* Hero */}
-      <section className="products-hero">
-        <div className="container">
-          <motion.h1
-            className="products-title"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.9 }}
-          >
-            Our <span className="highlight">Products</span>
-          </motion.h1>
-          <motion.p
-            className="products-subtitle"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            We offer a limited range right now — Wheat, Rice, and Dal — so we can
-            focus on <span className="highlight">quality</span>, traceability, and
-            honest sourcing. Every batch is tested and trusted.
-          </motion.p>
-        </div>
-      </section>
+    <div className="products-page">
+      <div className="products-header">
+        <h1>Fresh from the Village</h1>
+        <p>Pure, organic, and authentic ingredients delivered straight to your home.</p>
+      </div>
 
-      {/* Product cards */}
-      <section className="products-list">
-        <div className="container">
-          {products.map((product, i) => (
-            <motion.article
-              key={product.id}
-              className="product-card"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-            >
-              <div className="product-card-image">
-                <img src={product.image} alt={product.name} />
+      <div className="products-grid">
+        {products.map((product) => {
+          const qty = getCartQuantity(product._id);
+          return (
+            <div className="product-card" key={product._id}>
+              <div className="product-image-container">
+                <img src={product.image_url} alt={product.name} />
+                <div className="product-category">{product.category}</div>
+                {qty > 0 && (
+                  <div className="cart-badge">{qty} in cart</div>
+                )}
               </div>
-              <div className="product-card-content">
-                <h2>{product.name}</h2>
-                <p>{product.description}</p>
+              <div className="product-info">
+                <h3>{product.name}</h3>
+                <p className="product-description">{product.description}</p>
+                <div className="product-footer">
+                  <span className="product-price">₹{product.price.toFixed(2)}</span>
+                  
+                  {qty === 0 ? (
+                    <button 
+                      className="add-to-cart-btn"
+                      onClick={() => handleAdd(product)}
+                      aria-label="Add to cart"
+                    >
+                      {isAuthenticated ? (
+                        <><Plus size={18} /><span>Add</span></>
+                      ) : (
+                        <><ShoppingBag size={18} /><span>Login to Buy</span></>
+                      )}
+                    </button>
+                  ) : (
+                    <div className="quantity-selector">
+                      <button className="qty-btn" onClick={() => handleDecrement(product._id)}>
+                        <Minus size={16} />
+                      </button>
+                      <span className="qty-count">{qty}</span>
+                      <button className="qty-btn" onClick={() => handleIncrement(product._id)}>
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="products-cta">
-        <div className="container">
-          <motion.p
-            className="products-cta-text"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Ready to bring honest food to your home?
-          </motion.p>
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <Button
-              label="Make an Order"
-              icon={<FaArrowRight />}
-              bgColor="#7ddc8a"
-              textColor="#000"
-              onClick={() => navigate("/order")}
-            />
-          </motion.div>
-        </div>
-      </section>
-    </main>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
-}
+};
+
+export default Products;

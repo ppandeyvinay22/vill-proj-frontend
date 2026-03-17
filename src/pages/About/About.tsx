@@ -1,6 +1,5 @@
 import "./About.css";
 import founder1 from "../../assets/images/founders/ashwani.webp";
-import founder2 from "../../assets/images/founders/nitin.webp";
 import { motion } from "framer-motion";
 import whyImage from "../../assets/images/photos/20.webp";
 import beliefImage from "../../assets/images/photos/19.webp";
@@ -139,7 +138,7 @@ export default function About() {
       </section>
 
 
-      {/* FOUNDERS */}
+      {/* FOUNDER */}
       <section className="about-founders">
         <motion.h2
           variants={fadeUp}
@@ -148,34 +147,25 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
         >
-          Know our <span className="highlight">Founders</span>
+          Meet the <span className="highlight">Founder</span>
         </motion.h2>
 
         <div className="founder-row">
-          {[founder1, founder2].map((img, i) => (
-            <motion.div
-              className="founder"
-              key={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: i * 0.1 }}
-            >
-              <img src={img} alt="Founder" />
-              <h3 className="heading">
-                {i === 0 ? "Ashwani Pandey" : "Nitin Pandey"}
-              </h3>
-              <p className="designation">
-                {i === 0 ? "CEO & Co-founder" : "COO & Co-founder"}
-              </p>
-              <p className="description">
-                {i === 0
-                  ? "Indian Army personality driven by discipline and service."
-                  : "Social activist focused on grassroots impact and institutions."}
-              </p>
-            </motion.div>
-          ))}
+          <motion.div
+            className="founder"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+          >
+            <img src={founder1} alt="Ashwani Pandey - Founder" />
+            <h3 className="heading">Ashwani Pandey</h3>
+            <p className="designation">Founder & CEO</p>
+            <p className="description">
+              Indian Army personality driven by discipline and service. On a mission to bring authentic village food to every Indian household.
+            </p>
+          </motion.div>
         </div>
       </section>
 

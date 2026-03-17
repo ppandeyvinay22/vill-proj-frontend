@@ -1,344 +1,147 @@
-import "./Home.css";
-import heroImage from "../../assets/images/photos/5.webp";
-import qualityBg from "../../assets/images/backgrounds/quality-bg.webp";
-
-import Button from "../../components/Button/Button";
-import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
-import {
-  FaSeedling,
-  FaFlask,
-  FaClock,
-  FaBan
-} from "react-icons/fa";
-
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-
-/* Swiper */
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
-
-/* Product images */
-import wheatImg from "../../assets/images/products/wheat.webp";
-import riceImg from "../../assets/images/products/rice.webp";
-import dalImg from "../../assets/images/products/dal.webp";
-
-/* Motion variant */
-const fadeUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 }
-};
+import { Link } from 'react-router-dom';
+import { Leaf, Award, Truck, ShieldCheck, AlertCircle } from 'lucide-react';
+import './Home.css';
 
 const Home = () => {
-  const navigate = useNavigate();
-
   return (
-    <main className="home">
-
-      {/* ================= HERO ================= */}
-      <section className="hero">
-        <div className="container hero-inner">
-
-          <motion.div
-            className="hero-content"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            <h1 className="tag-line">
-              <span className="highlight">Fresh</span> from <span className="highlight">Gaon</span><br />
-              <span className="highlight">Honest</span> to <span className="highlight">Home</span>
-            </h1>
-
-            <p className="hero-text">
-              GaonKart brings traditionally sourced Wheat, rice, dal, and more
-              directly from villages —
-              <span className="good"> tested</span>,
-              <span className="good"> trusted</span>, and
-              <span className="good"> traceable</span>.
-              <br /><br />
-              Big industries optimise for
-              <span className="bad"> shelf life</span> and
-              <span className="bad"> appearance</span>.
-              We optimise for
-              <span className="good strong"> health</span> and
-              <span className="good strong"> honesty</span>.
-            </p>
-
-            <Button
-              label="Make an Order"
-              icon={<FaArrowRight />}
-              bgColor="#7ddc8a"
-              textColor="#000"
-              onClick={() => navigate("/order")}
-            />
-          </motion.div>
-
-          <motion.div
+    <div className="home-container">
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-badge">100% Organic & Authentic</div>
+          <h1 className="hero-title">
+            The Pure Taste of <span>Village Roots</span>
+          </h1>
+          <p className="hero-subtitle">
+            Tired of processed, adulterated food? We bring you natural, farm-fresh ingredients 
+            directly from village farmers to your urban doorstep.
+          </p>
+          <div className="hero-actions">
+            <Link to="/products" className="btn btn-primary">
+              Shop Authentic Food
+            </Link>
+            <Link to="/about" className="btn btn-secondary">
+              Why We Are Different
+            </Link>
+          </div>
+        </div>
+        <div className="hero-visual">
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <img 
+            src="https://images.pexels.com/photos/2252584/pexels-photo-2252584.jpeg?auto=compress&cs=tinysrgb&w=800" 
+            alt="Fresh Organic Vegetables from Village Farm" 
             className="hero-image"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            <img src={heroImage} alt="Village harvest" />
-          </motion.div>
-
-        </div>
-      </section>
-
-
-      {/* ================= TRUST ================= */}
-      <section className="trust">
-        <div className="container">
-          <motion.h2
-            className="section-heading"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            Why families <span style={{ color: "#1E4D2B" }}>trust GaonKart</span>
-          </motion.h2>
-
-          <div className="trust-grid">
-            {[
-              { icon: <FaSeedling />, title: "Village Sourced", desc: "Directly from trusted village farmers with full traceability." },
-              { icon: <FaFlask />, title: "Quality Tested", desc: "Checked for moisture, purity, and adulteration every batch." },
-              { icon: <FaClock />, title: "Fresh Batches", desc: "Produced in small batches, not stored for months." },
-              { icon: <FaBan />, title: "No Chemical Shortcuts", desc: "No bleaching, polish, or chemical processing." }
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                className="trust-card"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: i * 0.2 }}
-              >
-                <div className="trust-icon">{item.icon}</div>
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* ================= PROBLEM SECTION ================= */}
-      <section className="problem">
-        <div className="problem-overlay" />
-
-        <div className="container problem-inner">
-
-          <motion.h2
-            className="section-heading problem-heading"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            What’s wrong with today’s <span style={{ color: "#1E4D2B" }}>food</span>?
-          </motion.h2>
-
-          <motion.p
-            className="problem-text"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            Modern food processing prioritizes{" "}
-            <span className="warn">speed</span> and{" "}
-            <span className="warn">appearance</span> over{" "}
-            <span className="good">nutrition</span>.
-            Chemical polishing, over-refining, and long storage slowly remove
-            what food is meant to give the body.
-          </motion.p>
-
-          <div className="problem-stats">
-
-            {[
-              { value: "70%", label: "Fiber loss in refined grains" },
-              { value: "3–6 months", label: "Storage before reaching homes" },
-              { value: "Multiple", label: "Chemical treatments used" }
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                className="problem-stat-card"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.2 + i * 0.1 }}
-              >
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </motion.div>
-            ))}
-
-          </div>
-        </div>
-      </section>
-
-      {/* ================= QUALITY ================= */}
-      <section className="quality-preview">
-        <div className="container quality-grid">
-
-          <motion.div
-            className="quality-content"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            <h2 style={{ fontSize: "32px" }}> How we ensure <span className="highlight">quality</span></h2>
-            <ul className="quality-steps">
-              <li><FaCheckCircle color="#7ddc8a" /> Village sourcing</li>
-              <li><FaCheckCircle color="#7ddc8a" /> Natural cleaning</li>
-              <li><FaCheckCircle color="#7ddc8a" /> Quality testing</li>
-              <li><FaCheckCircle color="#7ddc8a" /> Fresh grinding</li>
-            </ul>
-
-            <div className="quality-actions">
-              <Button label="Make an Order" bgColor="#7ddc8a" icon={<FaArrowRight />} textColor="#000" onClick={() => navigate("/order")} />
-              <Button label="See More" bgColor="#fff" textColor="#000" onClick={() => navigate("/quality")} />
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="quality-image"
-            style={{ backgroundImage: `url(${qualityBg})` }}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
           />
-        </div>
-      </section>
-
-
-
-      {/* ================= PRODUCTS (SWIPER) ================= */}
-      <section className="products-preview">
-        <div className="container">
-
-          <motion.h2
-            className="section-heading"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            Our Products
-          </motion.h2>
-
-          <Swiper
-            modules={[Autoplay]}
-            loop
-            freeMode={true}
-            slidesPerView={3}
-            spaceBetween={24}
-            speed={8000}                 // increase = slower constant speed
-            autoplay={{
-              delay: 0,
-              disableOnInteraction: false,
-            }}
-            allowTouchMove={true}
-            breakpoints={{
-              0: { slidesPerView: 1.1 },
-              600: { slidesPerView: 2.2 },
-              1024: { slidesPerView: 3 },
-            }}
-            className="products-swiper"
-          >
-            {[wheatImg, riceImg, dalImg, wheatImg, riceImg].map((img, i) => (
-              <SwiperSlide key={i}>
-                <div className="product-image-card">
-                  <img src={img} alt="GaonKart product" />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          <div className="section-action">
-            <Button
-              label="View All Products"
-              icon={<FaArrowRight />}
-              bgColor="#000"
-              textColor="#fff"
-              onClick={() => navigate("/products")}
-            />
+          <div className="floating-card glass-panel" style={{ top: '10%', left: '-10%' }}>
+              <span className="emoji">🍯</span>
+              <div>
+                  <strong>Pure Honey</strong>
+                  <span>Wild Harvested</span>
+              </div>
           </div>
-
+          <div className="floating-card glass-panel" style={{ bottom: '15%', right: '-5%' }}>
+              <span className="emoji">🌾</span>
+              <div>
+                  <strong>Bilona Ghee</strong>
+                  <span>Traditionally A2</span>
+              </div>
+          </div>
         </div>
       </section>
 
+      {/* The Problem Section */}
+      <section className="problem-section">
+        <div className="section-header">
+          <span className="section-label">THE PROBLEM</span>
+          <h2>The Modern Food Industry is Broken</h2>
+        </div>
+        <div className="problem-grid">
+          <div className="problem-item">
+            <div className="problem-icon"><AlertCircle /></div>
+            <h3>Excessive Processing</h3>
+            <p>Most supermarket foods are stripped of nutrients and loaded with preservatives to increase shelf life.</p>
+          </div>
+          <div className="problem-item">
+            <div className="problem-icon"><AlertCircle /></div>
+            <h3>Widespread Adulteration</h3>
+            <p>From milk to spices, finding pure products is nearly impossible. Chemical additives have become the norm.</p>
+          </div>
+          <div className="problem-item">
+            <div className="problem-icon"><AlertCircle /></div>
+            <h3>Hidden Sourcing</h3>
+            <p>Do you know where your food comes from? Long supply chains prioritize profit over transparency and health.</p>
+          </div>
+        </div>
+      </section>
 
-      {/* ================= VIDEO ================= */}
-      <section className="video-section">
-        <div className="container video-grid">
-
-          <motion.div
-            className="video-text"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            <h2 style={{ fontSize: "32px", marginBottom: "24px" }}>Why food <span className="highlight">purity</span> matters</h2>
-            <p className="food-message">
-              Food is not just <span className="warn">calories</span>.
-              <br />
-              <span className="warn">Processing</span>,{" "}
-              <span className="warn">storage</span>, and{" "}
-              <span className="warn">chemicals</span> {" "}
-              decide what finally reaches your{" "}
-              <span className="good strong">body</span>.
-            </p>
-
-            <blockquote className="food-quote">
-              “What we eat every day decides how we live every day.”
-            </blockquote>
-
-            <div className="quality-actions">
-              <Button label="Make an Order" bgColor="#7ddc8a" icon={<FaArrowRight />} textColor="#000" onClick={() => navigate("/order")} />
-              {/* <Button label="See More" bgColor="#fff" textColor="#000" onClick={() => navigate("/quality")} /> */}
+      {/* Why We Are Better Section */}
+      <section className="why-better-section">
+        <div className="better-content">
+          <span className="section-label">OUR MISSION</span>
+          <h2>Why VillageFood is Different</h2>
+          <div className="better-list">
+            <div className="better-item">
+              <div className="check-icon"><ShieldCheck /></div>
+              <div>
+                <h4>Zero Adulteration Guarantee</h4>
+                <p>We perform rigorous quality checks to ensure everything is as pure as nature intended.</p>
+              </div>
             </div>
-          </motion.div>
-
-          <motion.div
-            className="video-wrapper"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-          >
-            <iframe
-              src="https://www.youtube.com/embed/XMcab1MFaLc"
-              title="Food purity"
-              allowFullScreen
-            />
-          </motion.div>
-
+            <div className="better-item">
+              <div className="check-icon"><ShieldCheck /></div>
+              <div>
+                <h4>Farm to Fork via Shiprocket</h4>
+                <p>We use Shiprocket (Delhivery, BlueDart, DTDC) to deliver fresh village produce to your doorstep in 2-4 days.</p>
+              </div>
+            </div>
+            <div className="better-item">
+              <div className="check-icon"><ShieldCheck /></div>
+              <div>
+                <h4>Empowering Village Farmers</h4>
+                <p>By removing middlemen, we ensure fair pay for farmers while giving you premium quality at honest prices.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="better-image">
+           <img 
+             src="https://images.pexels.com/photos/2382665/pexels-photo-2382665.jpeg?auto=compress&cs=tinysrgb&w=800" 
+             alt="Village Farmer working in field" 
+           />
         </div>
       </section>
 
-    </main>
+      {/* Product Categories / Quick Shop */}
+      <section className="features-section">
+        <div className="feature-card">
+          <div className="feature-icon"><Leaf size={32} /></div>
+          <h3>100% Organic</h3>
+          <p>Verified organic farms following non-GMO traditional agriculture.</p>
+        </div>
+        <div className="feature-card">
+          <div className="feature-icon"><Award size={32} /></div>
+          <h3>Ancient Wisdom</h3>
+          <p>Our products are made using traditional recipes passed down through generations.</p>
+        </div>
+        <div className="feature-card">
+          <div className="feature-icon"><Truck size={32} /></div>
+          <h3>Reliable Delivery</h3>
+          <p>Shipped via Shiprocket's courier network for fast pan-India delivery with real-time tracking.</p>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2>Pure Food, Pure Life.</h2>
+          <p>Stop compromising on your health. Switch to authentic village products today.</p>
+          <Link to="/products" className="btn btn-primary btn-large">
+            Get Started
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 };
 

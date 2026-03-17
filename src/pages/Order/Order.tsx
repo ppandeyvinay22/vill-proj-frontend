@@ -1,118 +1,162 @@
-import "./Order.css";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import Button from "../../components/Button/Button";
-import { FaWhatsapp } from "react-icons/fa";
-import { AUTH_VISIBLE } from "../../config/featureFlags";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '../../store/useAuthStore';
+import api from '../../services/api';
+import { Package, Clock, MapPin, Truck } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import './Order.css';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
-};
+interface OrderItem {
+  product_id: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+interface OrderData {
+  _id: string;
+  items: OrderItem[];
+  total_price: number;
+  status: string;
+  payment_status: string;
+  logistics_provider: string;
+  tracking_id: string | null;
+  created_at: string;
+  address: {
+    full_name: string;
+    address_line: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+}
 
 export default function Order() {
-  const navigate = useNavigate();
-  const whatsappNumber = "919026198225";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+  const [orders, setOrders] = useState<OrderData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchOrders();
+    } else {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
+
+  const fetchOrders = async () => {
+    try {
+      const res = await api.get('/orders');
+      setOrders(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getStatusBadge = (status: string) => {
+    const colors: Record<string, string> = {
+      pending: '#FF9800',
+      confirmed: '#2196F3',
+      shipped: '#9C27B0',
+      delivered: '#4CAF50',
+      cancelled: '#F44336'
+    };
+    return {
+      background: `${colors[status] || '#888'}15`,
+      color: colors[status] || '#888',
+      border: `1px solid ${colors[status] || '#888'}30`
+    };
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="orders-empty-state">
+        <Package size={64} strokeWidth={1.5} />
+        <h2>Login to view your orders</h2>
+        <p>Track your village food deliveries and order history.</p>
+        <Link to="/login" className="order-login-btn">Login to Continue</Link>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="orders-loading">
+        <div className="spinner"></div>
+        <p>Loading your orders...</p>
+      </div>
+    );
+  }
+
+  if (orders.length === 0) {
+    return (
+      <div className="orders-empty-state">
+        <Package size={64} strokeWidth={1.5} />
+        <h2>No orders yet</h2>
+        <p>Start shopping to see your orders here.</p>
+        <Link to="/products" className="order-login-btn">Browse Products</Link>
+      </div>
+    );
+  }
 
   return (
-    <main className="order-page">
-      <section className="order-hero">
-        <div className="order-hero-inner">
-          <motion.h1
-            className="order-title"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.7 }}
-          >
-            Fresh from Gaon. <span className="highlight">Honest to Order.</span>
-          </motion.h1>
-          <motion.p
-            className="order-subtitle"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            GaonKart brings pure, traditionally sourced wheat, rice, and dal
-            directly from villages. Order the way that works for you.
-          </motion.p>
-        </div>
-      </section>
+    <main className="orders-page">
+      <div className="orders-header">
+        <h1>Your Orders</h1>
+        <p>{orders.length} order{orders.length > 1 ? 's' : ''} placed</p>
+      </div>
 
-      <section className="order-options">
-        <div className="order-options-inner">
-          <motion.h2
-            className="order-section-heading"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.45 }}
-          >
-            How to order
-          </motion.h2>
-
-          <div className="order-cards">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="order-card order-card-primary"
-            >
-              <span className="order-card-icon">
-                <FaWhatsapp size={32} />
+      <div className="orders-list">
+        {orders.map(order => (
+          <div className="order-card" key={order._id}>
+            <div className="order-card-header">
+              <div className="order-meta">
+                <span className="order-id">#{order._id.slice(-8).toUpperCase()}</span>
+                <span className="order-date">
+                  <Clock size={14} />
+                  {new Date(order.created_at).toLocaleDateString('en-IN', {
+                    day: 'numeric', month: 'short', year: 'numeric'
+                  })}
+                </span>
+              </div>
+              <span className="status-badge" style={getStatusBadge(order.status)}>
+                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
               </span>
-              <h3>Order on WhatsApp</h3>
-              <p>
-                Send us your order on WhatsApp. We’ll confirm availability and
-                delivery. Quick and personal.
-              </p>
-              <span className="order-card-cta">Open WhatsApp →</span>
-            </a>
+            </div>
 
-            <div
-              className="order-card order-card-placeholder"
-            >
-              <h3>Online orders (coming soon)</h3>
-              <p>
-                We’re building a full order experience with login and order
-                history. Until then, use WhatsApp or the form below.
-              </p>
+            <div className="order-items-preview">
+              {order.items.map((item, idx) => (
+                <div className="order-item-row" key={idx}>
+                  <span className="item-name">{item.name}</span>
+                  <span className="item-qty">×{item.quantity}</span>
+                  <span className="item-price">₹{(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="order-card-footer">
+              <div className="order-shipping">
+                <div className="shipping-detail">
+                  <Truck size={16} />
+                  <span>{order.logistics_provider}</span>
+                </div>
+                {order.tracking_id && (
+                  <span className="tracking-id">Tracking: {order.tracking_id}</span>
+                )}
+                <div className="shipping-detail">
+                  <MapPin size={16} />
+                  <span>{order.address.city}, {order.address.state} - {order.address.pincode}</span>
+                </div>
+              </div>
+              <div className="order-total">
+                <span>Total</span>
+                <strong>₹{order.total_price.toFixed(2)}</strong>
+              </div>
             </div>
           </div>
-
-          <motion.div
-            className="order-actions"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Button
-              label="Order on WhatsApp"
-              icon={<FaWhatsapp />}
-              bgColor="#25D366"
-              textColor="#fff"
-              onClick={() => window.open(whatsappUrl, "_blank")}
-            />
-            <Button
-              label="Back to Home"
-              bgColor="#fff"
-              textColor="#000"
-              onClick={() => navigate("/")}
-            />
-          </motion.div>
-
-          {AUTH_VISIBLE && (
-            <motion.p className="order-auth-hint" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              Have an account? <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link> to see your orders.
-            </motion.p>
-          )}
-        </div>
-      </section>
+        ))}
+      </div>
     </main>
   );
 }

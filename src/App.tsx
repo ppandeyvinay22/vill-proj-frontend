@@ -8,6 +8,11 @@ import Quality from "./pages/Quality/Quality";
 import Order from "./pages/Order/Order";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import Cart from "./pages/Cart/Cart";
+import Checkout from "./pages/Checkout/Checkout";
+import PrivacyPolicy from "./pages/Policies/PrivacyPolicy";
+import TermsOfService from "./pages/Policies/TermsOfService";
+import ShippingPolicy from "./pages/Policies/ShippingPolicy";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -20,11 +25,17 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<About />} />
         <Route path="/quality" element={<Quality />} />
         <Route path="/order" element={<Order />} />
+        <Route path="/orders" element={<Order />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/shipping" element={<ShippingPolicy />} />
         </Routes>
       </main>
       <Footer />
