@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# VillageFood — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium React e-commerce frontend for the VillageFood platform.
 
-Currently, two official plugins are available:
+## Tech Stack & Design Decisions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Choice | What | Why |
+|--------|------|-----|
+| **React 19** | UI framework | Component-based, huge ecosystem, fast development |
+| **Vite** | Build tool | 10x faster than CRA, instant HMR, small bundle size |
+| **TypeScript** | Language | Catch bugs at compile time, better DX with autocomplete |
+| **Zustand** | State management | Lightweight (~1KB), no boilerplate, persistent cart state |
+| **Lucide React** | Icons | Modern, tree-shakeable, consistent design |
+| **Framer Motion** | Animations | Smooth page transitions on About page |
+| **Vanilla CSS** | Styling | Full control, no framework lock-in, dark mode via `prefers-color-scheme` |
 
-## React Compiler
+## Architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── Navbar/        # Glassmorphism navbar with active routes, cart badge
+│   │   ├── Footer/        # Multi-column footer with trust badges
+│   │   └── ScrollToTop.tsx
+│   ├── pages/
+│   │   ├── Home/          # Hero, problem statement, CTA sections
+│   │   ├── Products/      # Product grid with cart quantity selector
+│   │   ├── Cart/          # Cart management with checkout
+│   │   ├── Checkout/      # Multi-step: Address → Payment → Order success
+│   │   ├── Order/         # Order history with shipment tracking
+│   │   ├── About/         # Founder story with Framer Motion animations
+│   │   ├── Quality/       # Quality standards page
+│   │   ├── Login/         # JWT login with glassmorphism card
+│   │   ├── Signup/        # User registration
+│   │   └── Policies/      # Privacy, Terms, Shipping pages
+│   ├── services/
+│   │   └── api.ts         # Axios instance with JWT interceptor
+│   ├── store/
+│   │   ├── useAuthStore.ts  # Auth state (JWT, user data)
+│   │   └── useCartStore.ts  # Cart state (items, quantities, persistence)
+│   ├── styles/
+│   │   └── Auth.css       # Shared auth page styling
+│   └── App.tsx            # Route definitions
+├── nginx.conf             # Production Nginx config (SPA + API proxy)
+├── Dockerfile             # Multi-stage: Node build → Nginx serve
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Key Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Product cards with live cart count** — See "2 in cart" badge + increment/decrement right on the product
+- **Login-gated cart** — "Login to Buy" button for unauthenticated users
+- **Multi-step checkout** — Address selection → Razorpay-style payment → Order confirmation with shipment details
+- **Active route highlighting** — Current page highlighted in navbar
+- **Mobile responsive** — Hamburger menu, stacking layouts
+- **Dark mode** — Auto-detects system preference
+- **Prices in ₹** — Indian Rupee throughout
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Running Locally
+
+### Prerequisites
+- Node.js 18+
+- Backend API running on `http://localhost:8000`
+
+### Steps
+```bash
+# 1. Clone
+git clone git@github.com:ppandeyvinay22/vill-proj-frontend.git
+cd vill-proj-frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Start dev server
+npm run dev
+```
+
+The app is now live at **http://localhost:5173**
+
+### API Proxy (Dev)
+In dev mode, API calls go to `http://localhost:8000` via the Axios base URL in `services/api.ts`.
+
+## Running with Docker
+
+```bash
+# From the parent directory (where docker-compose.yml is)
+docker-compose up --build
+```
+
+In production (Docker), Nginx proxies `/api/*` requests to the backend container.
+
+## Build for Production
+
+```bash
+npm run build
+# Output in dist/ — serve with any static file server
 ```
